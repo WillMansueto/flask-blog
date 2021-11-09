@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <article class="message is-success">
+        <div class="message-body">
+            <p>{{ message }}</p>
+        </div>
+    </article>
+{% endfor %}
+
+    <h1 class='title'>What's your name?</h1>
+    <br/>
+    <form method="POST">
+        <div class='field'>
+        {{ form.hidden_tag() }}
+        {{ form.name.label(class='label') }}
+        {{ form.name(class='input') }}
+        </div>
+        <div class='field'>
+        {{ form.email.label(class='label') }}
+        {{ form.email(class='input') }}
+        </div>
+        <div class="field">
+        {{ form.submit(class='button') }}
+        </div>
+    </form>
+    <br/><br/>
+
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>name</th>
+			<th>email</th>
+		</tr>
+	</thead>
+	<tbody>
+{% for our_user in our_users %}
+		<tr>
+            <th>{{ our_user.id }}</th>
+            <td>{{ our_user.name }}</td>
+            <td>{{ our_user.email }}</td>
+		</tr>
+{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

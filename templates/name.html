@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <article class="message is-success">
+        <div class="message-body">
+            <p>{{ message }}</p>
+        </div>
+    </article>
+{% endfor %}
+
+{% if name %}
+    <h1 class='title'>Hello {{ name|title }}!!</h1>
+{% else %}
+    <h1 class='title'>What's your name?</h1>
+    <br/>
+    <form method="POST">
+        <div class='field'>
+        {{ form.hidden_tag() }}
+        {{ form.name.label(class='label') }}
+        {{ form.name(class='input') }}
+        </div>
+        <br/>
+        <div class="field">
+        {{ form.submit(class='button') }}
+        </div>
+    </form>
+
+{% endif %}
+
+{% endblock %}
