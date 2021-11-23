@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <article class="message is-success">
+        <div class="message-body">
+            <p>{{ message }}</p>
+        </div>
+    </article>
+{% endfor %}
+{% if name %}
+    <h1>User Updated</h1>
+    <table class="table">
+	    <thead>
+		    <tr>
+			    <th>id</th>
+			    <th>name</th>
+			    <th>email</th>
+                <th>favorite color</th>
+		    </tr>
+	    </thead>
+	    <tbody>
+            {% for our_user in our_users %}
+		    <tr>
+                <th>{{ our_user.id }}</th>
+                <td>{{ our_user.name }}</td>
+                <td>{{ our_user.email }}</td>
+                <td>{{ our_user.favorite_color }}</td>
+		    </tr>
+            {% endfor %}
+    	</tbody>
+    </table>
+{% else %}
+    <h1 class='title'>Update User</h1>
+    <br/>
+    <form action="/update/{{ name_to_update.id }}" method="POST">
+        <div class='field'>
+        {{ form.hidden_tag() }}
+        {{ form.name.label(class='label') }}
+        {{ form.name(class='input', value=name_to_update.name) }}
+        </div>
+        <div class='field'>
+        {{ form.email.label(class='label') }}
+        {{ form.email(class='input', value=name_to_update.email) }}
+        </div>
+        <div class='field'>
+        {{ form.favorite_color.label(class='label') }}
+        {{ form.favorite_color(class='input', value=name_to_update.favorite_color) }}
+        </div>
+        <div class="field">
+        {{ form.submit(class='button') }}
+        <a class='button' href="{{ url_for('delete', id=id) }}">delete</a>
+        </div>
+    </form>
+    <br/><br/>
+{% endif %}
+{% endblock %}
+
