@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <article class="message is-success">
+        <div class="message-body">
+            <p>{{ message }}</p>
+        </div>
+    </article>
+{% endfor %}
+
+<h1 class='title'>Dashboard</h1>
+    <br/>
+<div class="card">
+    <header class="card-header">
+        <h1 class="card-header-title">Dashboard</h1>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            <strong>name: </strong>{{ current_user.name }}<br/>
+            <strong>username: </strong>{{ current_user.username }}<br/>
+            <strong>email: </strong>{{ current_user.email }}<br/>
+            <strong>user id: </strong>{{ current_user.id }}<br/>
+            <strong>favorite color: </strong>{{ current_user.favorite_color }}<br/>
+            <strong>Date joined: </strong>{{ current_user.date_added }}<br/>
+        </div>
+        <a class="button" href="{{ url_for('logout') }}">logout</a>
+        <a class="button" href="{{ url_for('update', id=current_user.id) }}">edit</a>
+        <a class='button' href="{{ url_for('delete', id=current_user.id) }}">delete</a>
+    </div>
+</div>
+<br/><br/>
+<div class="card">
+    <header class="card-header">
+        <h1 class="card-header-title">Update User</h1>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            <form action="/dashboard" method="POST">
+                <div class='field'>
+                    {{ form.hidden_tag() }}
+                    {{ form.name.label(class='label') }}
+                    {{ form.name(class='input', value=name_to_update.name) }}
+                </div>
+                <div class='field'>
+                    {{ form.username.label(class='label') }}
+                    {{ form.username(class='input', value=name_to_update.username) }}
+                </div>
+                <div class='field'>
+                    {{ form.email.label(class='label') }}
+                    {{ form.email(class='input', value=name_to_update.email) }}
+                </div>
+                <div class='field'>
+                    {{ form.favorite_color.label(class='label') }}
+                    {{ form.favorite_color(class='input', value=name_to_update.favorite_color) }}
+                </div>
+                <div class="field">
+                    {{ form.submit(class='button') }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <br/><br/>
+
+{% endblock %}

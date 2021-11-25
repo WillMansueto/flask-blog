@@ -9,36 +9,20 @@
         </div>
     </article>
 {% endfor %}
-{% if name %}
-    <h1>User Updated</h1>
-    <table class="table">
-	    <thead>
-		    <tr>
-			    <th>id</th>
-			    <th>name</th>
-			    <th>email</th>
-                <th>favorite color</th>
-		    </tr>
-	    </thead>
-	    <tbody>
-            {% for our_user in our_users %}
-		    <tr>
-                <th>{{ our_user.id }}</th>
-                <td>{{ our_user.name }}</td>
-                <td>{{ our_user.email }}</td>
-                <td>{{ our_user.favorite_color }}</td>
-		    </tr>
-            {% endfor %}
-    	</tbody>
-    </table>
-{% else %}
-    <h1 class='title'>Update User</h1>
-    <br/>
+
+{% if id == current_user.id %}
+
+<h1 class='title'>Update User</h1><br/>
+<br/><br/>
     <form action="/update/{{ name_to_update.id }}" method="POST">
         <div class='field'>
         {{ form.hidden_tag() }}
         {{ form.name.label(class='label') }}
         {{ form.name(class='input', value=name_to_update.name) }}
+        </div>
+        <div class='field'>
+        {{ form.username.label(class='label') }}
+        {{ form.username(class='input', value=name_to_update.username) }}
         </div>
         <div class='field'>
         {{ form.email.label(class='label') }}
@@ -54,6 +38,15 @@
         </div>
     </form>
     <br/><br/>
+{% else %}
+<article class="message is-danger">
+    <div class="message-body">
+        <p>You can't edit this user</p>
+    </div>
+</article>
+<h1>Access Denied!</h1>
+<p>Sorry you cannot access this user profile</p>
+
 {% endif %}
 {% endblock %}
 

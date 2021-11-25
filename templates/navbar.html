@@ -1,37 +1,46 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-      <a class="navbar-item" href="{{ url_for('index') }}" style="padding:0">
-          <img src="{{ url_for('static', filename='images/flask_logo.png') }}" style="max-height:none;height:56px!important">
-    </a>
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="{{ url_for('user', name='Bob') }}">
-        User Profile
-      </a>
-      <a class="navbar-item" href="{{ url_for('name') }}">
-        Name
-      </a>
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{{ url_for('index') }}" style="padding:0">
+            <img src="{{ url_for('static', filename='images/flask_logo.png') }}" style="max-height:none;height:56px!important">
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
     </div>
 
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-            <a class="button is-primary" href="{{ url_for('add_user') }}">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light">
-            Log in
-          </a>
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            {% if current_user.is_authenticated %}
+                <a class="navbar-item" href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a class="navbar-item" href="{{ url_for('add_post') }}">Add Blog Post</a>
+            {% endif %}
+            <a class="navbar-item" href="{{ url_for('user', name='Bob') }}">User Profile</a>
+            <a class="navbar-item" href="{{ url_for('name') }}">Name</a>
+            <a class="navbar-item" href="{{ url_for('posts') }}">Posts</a>
         </div>
-      </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <form method="POST" action="{{ url_for('search') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="field">
+                        <input class="input" type="text" placeholder="search", name="searched">
+                    </div>
+                </form>
+            </div>
+            <div class="navbar-item">
+                <div class="buttons">
+                    {% if current_user.is_authenticated %}
+                        <a class="button is-primary" href="{{ url_for('dashboard') }}">Dashboard</a>
+                        <a class="button is-danger" href="{{ url_for('logout') }}">Log out</a>
+                    {% else %}
+                        <a class="button is-primary" href="{{ url_for('add_user') }}"><strong>Sign up</strong></a>
+                        <a class="button is-light" href="{{ url_for('login') }}">Log in</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>

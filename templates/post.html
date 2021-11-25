@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <article class="message is-success">
+        <div class="message-body">
+            <p>{{ message }}</p>
+        </div>
+    </article>
+{% endfor %}
+
+<h1 class="title">{{ post.title }}</h1>
+    <small>{{ post.poster.name }} - {{ post.date_posted }}</small><br/>
+    <p>{{ post.content }}</p><br/>
+    <a href="{{ url_for('posts') }}" class="button">Back to Blog</a>
+    {% if post.poster.id == current_user.id %}
+        <a href="{{ url_for('edit_post', id=post.id) }}" class="button">Edit</a>
+        <a href="{{ url_for('delete_post', id=post.id) }}" class="button">Delete</a>
+    {% endif %}
+{% endblock %}
+

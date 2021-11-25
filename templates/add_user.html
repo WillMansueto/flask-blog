@@ -15,6 +15,10 @@
     <form method="POST">
         <div class='field'>
         {{ form.hidden_tag() }}
+        {{ form.username.label(class='label') }}
+        {{ form.username(class='input') }}
+        </div>
+        <div class='field'>
         {{ form.name.label(class='label') }}
         {{ form.name(class='input') }}
         </div>
@@ -45,6 +49,7 @@
 	<thead>
 		<tr>
 			<th>id</th>
+			<th>username</th>
 			<th>name</th>
 			<th>email</th>
 			<th>favorite color</th>
@@ -56,6 +61,7 @@
 {% for our_user in our_users %}
 		<tr>
             <th>{{ our_user.id }}</th>
+            <td>{{ our_user.username }}</td>
             <td><a href="{{ url_for('update', id=our_user.id) }}">{{ our_user.name }}</a></td>
             <td>{{ our_user.email }}</td>
             <td>{{ our_user.favorite_color }}</td>

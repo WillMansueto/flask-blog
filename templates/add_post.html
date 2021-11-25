@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <article class="message is-success">
+        <div class="message-body">
+            <p>{{ message }}</p>
+        </div>
+    </article>
+{% endfor %}
+
+<h1 class='title'>Add Blog Post...</h1>
+    <br/>
+    <form method="POST">
+        <div class='field'>
+        {{ form.hidden_tag() }}
+        {{ form.title.label(class='label') }}
+        {{ form.title(class='input') }}
+        </div>
+        <div class='field'>
+        {{ form.slug.label(class='label') }}
+        {{ form.slug(class='input') }}
+        </div>
+        <div class='field'>
+        {{ form.content.label(class='label') }}
+        {{ form.content(class='textarea', rows='10') }}
+        </div>
+        <div class="field">
+        {{ form.submit(class='button') }}
+        </div>
+    </form>
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='content') }}
+    <br/><br/>
+
+
+{% endblock %}
